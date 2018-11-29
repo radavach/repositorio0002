@@ -1,0 +1,24 @@
+{
+  "name": "proyecto",
+  "integrations": {},
+  "type": "ionic-angular",
+  
+  "proxies" : [
+    {
+      "path": "/home",
+      "proxyUrl": "http://127.0.0.1:5000/home"
+    },
+    {
+      "path": "/login",
+      "proxyUrl": "http://127.0.0.1:5000/login"
+    },
+    {
+      "path": "/usuario",
+      "proxyUrl": "http://127.0.0.1:5000/usuario"
+    },
+    {
+      "path": "/salon",
+      "proxyUrl": "http://127.0.0.1:5000/salon"
+    }  
+  ]
+}

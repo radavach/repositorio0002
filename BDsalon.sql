@@ -13,7 +13,7 @@ CREATE TABLE Usuario(
 
 CREATE TABLE Dueno(
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	id_Usuario INT,
+	id_Usuario INT NOT NULL,
 	numero_Cuenta VARCHAR(16) NOT NULL,
 	FOREIGN KEY (id_Usuario) REFERENCES Usuario(id)
 );
@@ -23,17 +23,17 @@ CREATE TABLE Salon(
 	nombre VARCHAR(30) NOT NULL,
 	ubicacion VARCHAR(50) NOT NULL,
 	codigo_Postal INT,
-	id_Dueno INT,
-	costo FLOAT,
+	id_Dueno INT NOT NULL,
+	costo FLOAT NOT NULL,
 	FOREIGN KEY (id_Dueno) REFERENCES Usuario(id)
 );
 
 
 CREATE TABLE Salon_Cliente(
-	id_Usuario INT,
-	id_Salon INT,
-	horas INT,
-	precio FLOAT,
+	id_Usuario INT NOT NULL,
+	id_Salon INT NOT NULL,
+	horas INT NOT NULL,
+	precio FLOAT NOT NULL,
 	FOREIGN KEY(id_Usuario) REFERENCES Usuario(id),
 	FOREIGN KEY(id_Salon) REFERENCES Salon(id)
 );

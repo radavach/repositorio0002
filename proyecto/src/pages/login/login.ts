@@ -64,5 +64,9 @@ export class LoginPage {
       }
     );
   }
+  
+  registrarUsuario(){
+    console.log("creando ando usuariando");
+  }
 
 }

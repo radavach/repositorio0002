@@ -5,14 +5,47 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>registrarU</ion-title>
+  <ion-navbar color="rosa">
+    <ion-title>Registrar Usuario</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding style="background-color: #662C90">
+
+  <ion-list >
+    <ion-item color="gris">
+      <ion-label fixed color="dark">Nombre*</ion-label>
+      <ion-input [(ngModel)]="nombre" type="text" value=""></ion-input>
+    </ion-item>
+
+    <ion-item color="gris">
+      <ion-label fixed color="dark">Apellidos</ion-label>
+      <ion-input [(ngModel)]="apellidos" type="text" value=""></ion-input>
+    </ion-item>
+
+    <ion-item color="gris">
+      <ion-label fixed color="dark">Teléfono</ion-label>
+      <ion-input [(ngModel)]="telefono" type="text" value=""></ion-input>
+    </ion-item>
+
+    <ion-item color="gris">
+      <ion-label fixed color="dark">Correo*</ion-label>
+      <ion-input [(ngModel)]="correo" type="text" value=""></ion-input>
+    </ion-item>
+
+    <ion-item color="gris">
+      <ion-label fixed color="dark">Contraseña*</ion-label>
+      <ion-input [(ngModel)]="password" type="password" value=""></ion-input>
+    </ion-item>
+
+    <ion-item color="gris">
+      <ion-label fixed color="dark">Numero de Cuenta (Solo si deseas rentar salones)</ion-label>
+      <ion-input [(ngModel)]="numCuenta" type="text" value=""></ion-input>      
+    </ion-item>
+  </ion-list>
+
+  <button [disabled]="this.nombre.length == 0 || this.correo.length == 0 || this.password.length == 0" (click)="registrarUsuario()" ion-button medium>Aceptar</button>
+  <button (click)="cancelar()" ion-button medium color="danger">Cancelar</button>
 
 </ion-content>

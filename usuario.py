@@ -5,27 +5,39 @@ class Usuario:
 		self.conexion = conexion
 		self.cursor = cursor
 		
-	def crear(self, nombre, apelidos, telefono, correo, password, tipo):
-		intertar = ("INSERT INTO Usuario(nombre, apellidos, telefono, correo, password, tipo) VALUES (%s,%s,%s,%s,%s,%s)")
-		h = hashlib.new('sha25', bytes(password, 'utf-8'))
-		h = h.hexdigest()
-		self.cursor.execute(insertar, (nombre, apellidos, telefono, correo, h, tipo))
-		self.conexion.commit()
+	def crear(self, nombre, apellidos, telefono, correo, password, tipo):
+		try:
+			insertar = ("INSERT INTO Usuario(nombre, apellidos, telefono, correo, password, tipo) VALUES (%s,%s,%s,%s,%s,%s)")
+			h = hashlib.new('sha256', bytes(password, 'utf-8'))
+			h = h.hexdigest()
+			self.cursor.execute(insertar, (nombre, apellidos, telefono, correo, h, tipo))
+			self.conexion.commit()
+			return True
+		except:
+			return False
 	
+	#ingresar usuario y devolver el id
 	def login(self, correo, password):
 		select = ("SELECT * FROM Usuario WHERE correo = %s AND password = %s")
 		h = hashlib.new('sha256', bytes(password, 'utf-8'))
 		h = h.hexdigest()
-		self.cursor.execute(select, (correo, password))
+		self.cursor.execute(select, (correo, h))
 		
-		resultado = self.cursor.fetchall()
+		usuarios = []
 		
-		if (resultado):
-			print(resultado)
-			return True
-		else:
-			return False
+		usuario_object = self.cursor.fetchone()
+		
+		if(usuario_object):
+			usuario = {
+				'id': usuario_object[0],
+				'tipo': usuario_object[6],
+				'nombreD': usuario_object[1]
+			}
+			usuarios.append(usuario)
+			
+		return usuarios
 	
+	#registrar renta de salon a un usuario
 	def rentarSalon(self, usuario, id_Salon, horas):
 		try:
 			precio = 0.0
@@ -34,9 +46,7 @@ class Usuario:
 			print(resultado)
 			if (resultado):
 				precio = resultado[0][5] * int(horas)
-			print("hola")
 			self.cursor.execute("SELECT id FROM usuario WHERE correo = %s", (usuario,))
-			print("hola de nuevo")
 			id_Usuario = self.cursor.fetchall()
 			print (id_Usuario[0][0])
 			insertar = ('INSERT INTO salon_cliente(id_Usuario, id_Salon, horas, precio) VALUES (%s,%s,%s,%s)')
@@ -48,6 +58,7 @@ class Usuario:
 			print("Ocurrio algo inesperado al rentar el salon para el cliente")
 			return False
 			
+	#devolver historial de rentas de usuario
 	def historialDeRentas(self, correo):
 		salones = []
 		self.cursor.execute("SELECT id FROM usuario WHERE correo = %s", (correo,))

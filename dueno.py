@@ -28,11 +28,25 @@ class Dueno:
 			print("El usuario no existe")
 			return False
 			
-	def buscarSalones(self, id_Dueno):
+	#mostrar salones de un dueño
+	def buscarSalones(self, id_Usuario):
+		salones = []
+		buscar_Id_Dueno = ("SELECT * FROM Dueno WHERE id_Usuario = %s")
 		select = ("SELECT * FROM Salon WHERE id_Dueno = %s")
-		self.cursor.execute(select, (id_Dueno,))
-		resultado = self.cursor.fetchall()
 		
-		return resultado
+		self.cursor.execute(buscar_Id_Dueno, (id_Usuario[0],))
+		id_Dueno = self.cursor.fetchone()
+		
+		if(id_Dueno):
+			self.cursor.execute(select, (id_Dueno[0],))
+				
+			for i in self.cursor.fetchall():
+				salon = {
+					'id': i[0],
+					'nombre': i[1],
+					'ubicacion': i[2]
+				}
+				salones.append(salon)
+		
+		return salones
 			
-	

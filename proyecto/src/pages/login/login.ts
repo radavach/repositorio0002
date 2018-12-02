@@ -1,8 +1,10 @@
+import { HomeDuenoPage } from './../home-dueno/home-dueno';
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 //Agregada por mi
 import { Http } from '@angular/http';
+import { RegistrarUPage } from '../registrar-u/registrar-u';
 
 /**
  * Generated class for the LoginPage page.
@@ -19,8 +21,12 @@ import { Http } from '@angular/http';
 export class LoginPage {
 
   home = HomePage;
+  homeDueno = HomeDuenoPage;
+  crearU = RegistrarUPage;
   usuario = '';
   password = '';
+  nombre = '';
+  dataU = [];
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -37,9 +43,19 @@ export class LoginPage {
 
     this.http.get('/login/?usuario=' + this.usuario + '&password=' + this.password )
       .subscribe( data => {
+        this.dataU = data.json();
         console.log(data.text());
-        if(data.text() == "True"){
-          this.navCtrl.setRoot(this.home, {usuario: this.usuario});
+        //console.log(this.dataU[0].nombreD);
+
+        if(this.dataU[0] != null && this.dataU[0].tipo == "1"){
+          console.log("cliente");
+          this.nombre = this.dataU[0].nombreD;
+          this.navCtrl.setRoot(this.home, {id: this.dataU[0].id, usuario: this.usuario, password: this.password, nombreD: this.nombre});
+        }
+        else if(this.dataU[0] != null && this.dataU[0].tipo == "0"){
+          console.log("dueño");
+          this.nombre = this.dataU[0].nombreD;
+          this.navCtrl.setRoot(this.homeDueno, {id: this.dataU[0].id, usuario: this.usuario, password: this.password, nombreD: this.nombre});
         }
         else{
           const alerta = this.alertCtrl.create(
@@ -67,6 +83,7 @@ export class LoginPage {
   
   registrarUsuario(){
     console.log("creando ando usuariando");
+    this.navCtrl.push(this.crearU);
   }
 
 }

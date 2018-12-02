@@ -5,14 +5,18 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>mostrarRegistroSalones</ion-title>
+  <ion-navbar color="secondary">
+    <ion-title>Registro de Salones</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content padding style="background-color: #A29C9B">
+  <ion-card *ngFor="let s of salones" style="border-radius: 10px">
+    <ion-item color="morado">
+      <ion-icon name="albums" item-start>
+      </ion-icon>
+      <h2 (click) = "clickSalon(s)">{{s.nombre}}</h2>
+      <p>{{s.ubicacion}}</p>
+    </ion-item>
+  </ion-card>
 </ion-content>

@@ -13,12 +13,36 @@
       "proxyUrl": "http://127.0.0.1:5000/login"
     },
     {
-      "path": "/usuario",
-      "proxyUrl": "http://127.0.0.1:5000/usuario"
+      "path": "/salones",
+      "proxyUrl": "http://127.0.0.1:5000/salones"
+    },
+    {
+      "path": "/salonesD",
+      "proxyUrl": "http://127.0.0.1:5000/salonesD"
     },
     {
       "path": "/salon",
       "proxyUrl": "http://127.0.0.1:5000/salon"
-    }  
+    },
+    {
+      "path": "/historial",
+      "proxyUrl": "http://127.0.0.1:5000/historial"
+    },
+    {
+      "path": "/rentar",
+      "proxyUrl": "http://127.0.0.1:5000/rentar"
+    },
+    {
+      "path": "/registrarU",
+      "proxyUrl": "http://127.0.0.1:5000/registrarU"
+    },
+    {
+      "path": "/registrarD",
+      "proxyUrl": "http://127.0.0.1:5000/registrarD"
+    },
+    {
+      "path": "/registrarS",
+      "proxyUrl": "http://127.0.0.1:5000/registrarS"
+    }
   ]
 }
